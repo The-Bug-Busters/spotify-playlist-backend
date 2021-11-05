@@ -1,0 +1,27 @@
+{
+  "name": "spotify-playlist-backend",
+  "version": "1.0.0",
+  "description": "Backend Service for Spotify Web App",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Bug-Busters/spotify-playlist-backend.git"
+  },
+  "author": "Julian Yaman, Gary Lude, Lars Strölin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/The-Bug-Busters/spotify-playlist-backend/issues"
+  },
+  "homepage": "https://github.com/The-Bug-Busters/spotify-playlist-backend#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "base-64": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "spotify-web-api-node": "^5.0.2"
+  }
+}
