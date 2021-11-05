@@ -1,4 +1,6 @@
 # 🤖 spotify-playlist-backend
+[![Backend Service Push](https://github.com/The-Bug-Busters/spotify-playlist-backend/actions/workflows/main.yml/badge.svg)](https://github.com/The-Bug-Busters/spotify-playlist-backend/actions/workflows/main.yml)
+
 This repository and Docker image contains the backend service used for our 
 [**Spotify Playlist Web App**](https://github.com/The-Bug-Busters/spotify-playlist-web-app)
 which is the result of an exam assignment at the DHBW university in Friedrichshafen, Germany.

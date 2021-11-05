@@ -1,4 +1,4 @@
-name: Spotify Playlist CI/CD
+name: Backend Service Push
 on:
   push:
     branches:
