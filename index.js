@@ -6,6 +6,11 @@ url.URLSearchParams = URLSearchParams
 const base64 = require('base-64')
 const SpotifyWebApi = require('spotify-web-api-node')
 
+const dayjs = require('dayjs')
+const relativeTime = require('dayjs/plugin/relativeTime')
+dayjs.extend(relativeTime)
+
+
 const app = express()
 
 app.use(cors());
@@ -16,6 +21,9 @@ const spotifyCredentials = {
 }
 
 let spotifyApi = new SpotifyWebApi(spotifyCredentials);
+
+let token;
+let expire_date;
 
 async function authorization_access(){
     const params = new URLSearchParams({ grant_type: 'client_credentials' });
@@ -29,8 +37,7 @@ async function authorization_access(){
                 }
             })
 
-        let response = request.data;
-        return response.access_token; // GET ACCESS TOKEN
+        return request.data; // GET ACCESS TOKEN
 
     } catch (error) {
         return error.response.data;
@@ -47,7 +54,25 @@ app.get('/searchsong/:query', async (req, res) => {
 
     let query = req.params.query
 
-    let token = await authorization_access()
+    console.log("Incoming request with query:", query)
+
+    if (!token) {
+        console.log("New Token generated")
+        let retrieval = await authorization_access()
+        token = retrieval.access_token
+        expire_date = dayjs().add(1, 'hour')
+        console.log("Expire date set to", expire_date)
+    }
+
+    console.log("Token expires in " + expire_date.diff(dayjs(), 'minute')  + " minutes")
+
+    if (expire_date.diff(dayjs(), 'minute') < 5) {
+        console.log("New Token generated since old one was close to be expired")
+        let retrieval = await authorization_access()
+        token = retrieval.access_token
+        expire_date = dayjs().add(1, 'hour')
+        console.log("Expire date set to", expire_date)
+    }
 
     spotifyApi.setAccessToken(token)
     spotifyApi.searchTracks(query).then(function(data) {
